@@ -1,4 +1,4 @@
-const { colors } = require('./src/utils/colors');
+const { colors } = require('./src/lib/colors');
 const { hairlineWidth } = require('nativewind/theme');
 
 /** @type {import('tailwindcss').Config} */

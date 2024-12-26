@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { MaterialIcons } from '@expo/vector-icons/';
 import './global.css';
 import { ToastProvider } from '@/components/Toast';
+import { Dialog } from '@/components/Dialog';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -29,12 +30,14 @@ export default function Layout() {
     return null;
   }
   return (
-    <ToastProvider position='top'>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="login" />
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-      <StatusBar style='dark' />
-    </ToastProvider>
+    <Dialog>
+      <ToastProvider position='top'>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="login" />
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+        <StatusBar style='dark' />
+      </ToastProvider>
+    </Dialog>
   );
 }

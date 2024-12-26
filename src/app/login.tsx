@@ -10,6 +10,7 @@ import { z } from 'zod'
 import axios from 'axios'
 import { router } from 'expo-router'
 import { useToast } from '@/components/Toast'
+import { storage } from '@/lib/storage'
 
 const Login = () => {
 
@@ -37,6 +38,7 @@ const Login = () => {
 
       if (response.status === 200) {
         toast("Bem-vindo!", "success", 3000);
+        storage.set("token", response.data.token)
         router.push("/")
       }
     } catch (error) {
@@ -51,7 +53,6 @@ const Login = () => {
       setIsLoading(false);
     }
   };
-
 
   return (
     <SafeAreaView>

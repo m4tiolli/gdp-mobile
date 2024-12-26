@@ -20,7 +20,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.m4tiolli.gdpmobile"
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"

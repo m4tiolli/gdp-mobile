@@ -1,11 +1,35 @@
+import NoProposals from '@/components/NoProposals';
 import Proposal from '@/components/Proposal';
-import Separator from '@/components/Separator';
+import { AlLProposals } from '@/interfaces/proposals';
+import { fetchAllProposals } from '@/lib/fetchs';
+import { storage } from '@/lib/storage';
 import { router } from 'expo-router';
-import { useEffect } from 'react';
-import { FlatList, Platform, Text } from 'react-native';
+import React from 'react';
+import { FlatList, Platform, RefreshControl, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function Tab() {
+export default function Dashboard() {
+
+  const [proposals, setProposals] = React.useState<AlLProposals[]>([])
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const token = storage.getString("token") || ""
+
+  React.useEffect(() => {
+    setImmediate(() => {
+      Promise.all([fetchAllProposals(token, setProposals)])
+    })
+  })
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      Promise.all([fetchAllProposals(token, setProposals)])
+      setRefreshing(false);
+    }, 2000);
+  };
+
   // useEffect(() => {
   //   if (Platform.OS === "ios") {
   //     setTimeout(() => {
@@ -18,12 +42,22 @@ export default function Tab() {
   //   }
   // }, [])
   return (
-    <SafeAreaView className='px-8 py-4'>
-      <Text className='text-3xl text-blue'>Propostas</Text>
-      <FlatList data={ } keyExtractor={item => item.codigoProposta} renderItem={({ item }) => <Proposal />} ItemSeparatorComponent={Separator} />
-      <Proposal />
-      <Separator />
-
+    <SafeAreaView className='px-8 py-4 gap-8'>
+      <Text className='text-3xl text-blue font-semibold'>Propostas</Text>
+      <FlatList
+        data={proposals}
+        keyExtractor={item => item.codigoProposta}
+        renderItem={({ item }) => <Proposal {...item} />}
+        ListEmptyComponent={NoProposals}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={['#fff']}
+            progressBackgroundColor={'#38457a'}
+          />
+        }
+      />
     </SafeAreaView>
   );
 }

@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function Tab() {
+export default function Menu() {
   return (
     <View style={styles.container}>
-      <Text>Tab Menu</Text>
+      <Text>Menu Menu</Text>
     </View>
   );
 }
