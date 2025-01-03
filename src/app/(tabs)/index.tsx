@@ -1,7 +1,7 @@
 import NoProposals from '@/components/NoProposals';
 import Proposal from '@/components/Proposal';
 import { AlLProposals } from '@/interfaces/proposals';
-import { fetchAllProposals } from '@/lib/fetchs';
+import { fetchAllProposals, fetchFatoresFinanceiros } from '@/lib/fetchs';
 import { storage } from '@/lib/storage';
 import { router } from 'expo-router';
 import React from 'react';
@@ -17,10 +17,8 @@ export default function Dashboard() {
   const token = storage.getString("token") || ""
 
   React.useEffect(() => {
-    setImmediate(() => {
-      Promise.all([fetchAllProposals(token, setProposals)])
-    })
-  })
+    Promise.all([fetchAllProposals(token, setProposals)])
+  }, [])
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -42,8 +40,8 @@ export default function Dashboard() {
   //   }
   // }, [])
   return (
-    <SafeAreaView className='px-8 py-4 gap-8'>
-      <Text className='text-3xl text-blue font-semibold'>Propostas</Text>
+    <SafeAreaView className='px-8 py-4 gap-6'>
+      <Text className='text-3xl text-blue font-semibold mt-3'>Propostas</Text>
       <FlatList
         data={proposals}
         keyExtractor={item => item.codigoProposta}

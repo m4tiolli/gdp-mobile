@@ -9,15 +9,15 @@ interface TabsContextProps {
 }
 const TabsContext = createContext<TabsContextProps>({
   activeTab: '',
-  setActiveTab: () => {},
+  setActiveTab: () => { },
 });
 
 interface TabsProps {
-  defaultValue: string;
+  defaultValue?: string;
   children: React.ReactNode;
 }
 function Tabs({ defaultValue, children }: TabsProps) {
-  const [activeTab, setActiveTab] = useState(defaultValue);
+  const [activeTab, setActiveTab] = useState(defaultValue ?? "0");
 
   return (
     <TabsContext.Provider value={{ activeTab, setActiveTab }}>
@@ -55,8 +55,8 @@ function TabsTrigger({
 
   return (
     <TouchableOpacity
-      className={cn('px-8 py-3 rounded-md w-1/2 bg-muted', {
-        'bg-foreground': activeTab === value,
+      className={cn('px-8 py-3 rounded-md bg-muted border border-blue', {
+        'bg-blue': activeTab === value,
         className,
       })}
       onPress={() => setActiveTab(value)}
@@ -85,7 +85,6 @@ function TabsContent({ value, className, ...props }: TabsContentProps) {
     return (
       <View
         className={cn(
-          'border border-border mt-2 px-4 py-4 rounded-xl',
           className
         )}
         {...props}

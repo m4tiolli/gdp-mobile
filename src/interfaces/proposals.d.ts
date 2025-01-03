@@ -7,3 +7,8 @@ export interface AlLProposals {
   linkPdf: string,
   nomeTabela: string
 }
+
+export interface NextProposals {
+  propostaRecuperadora: string,
+  propostaServicos: string
+}

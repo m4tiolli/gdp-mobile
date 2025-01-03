@@ -8,6 +8,7 @@ import Menu from './menu';
 import { Icon as IIcon } from '@expo/vector-icons/build/createIconSet';
 import { useEffect, useRef } from 'react';
 import * as Animatable from 'react-native-animatable';
+import NewProposal from './new';
 
 interface ITabArr {
   route: string;
@@ -20,7 +21,7 @@ interface ITabArr {
 
 const TabArr: ITabArr[] = [
   { route: 'index', label: 'Home', type: Icons.Ionicons, activeIcon: 'home', inActiveIcon: 'home-outline', component: Dashboard },
-  { route: 'new', label: 'New', type: Icons.AntDesign, activeIcon: 'pluscircle', inActiveIcon: 'pluscircleo', component: Menu },
+  { route: 'new', label: 'New', type: Icons.AntDesign, activeIcon: 'pluscircle', inActiveIcon: 'pluscircleo', component: NewProposal },
   { route: 'menu', label: 'Menu', type: Icons.Ionicons, activeIcon: 'menu', inActiveIcon: 'menu', component: Menu },
 ];
 
@@ -65,13 +66,13 @@ const TabButton = (props: Props) => {
     if (viewRef.current) {
       if (focused) {
         viewRef.current.animate({
-          0: { scaleX: .5, scaleY: .5, transform: [{ rotate: '0deg' }] },
-          1: { scaleX: 1.5, scaleY: 1.5, transform: [{ rotate: '360deg' }] }
+          0: { scaleX: .5, scaleY: .5 },
+          1: { scaleX: 1.5, scaleY: 1.5 }
         });
       } else {
         viewRef.current.animate({
-          0: { scaleX: 1.5, scaleY: 1.5, transform: [{ rotate: '360deg' }] },
-          1: { scaleX: 1, scaleY: 1, transform: [{ rotate: '0deg' }] }
+          0: { scaleX: 1.5, scaleY: 1.5 },
+          1: { scaleX: 1, scaleY: 1 }
         });
       }
     }
